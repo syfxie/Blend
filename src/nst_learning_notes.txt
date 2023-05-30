@@ -1,0 +1,39 @@
+Neural style transfer
+- motivation: two images can have zero style loss and non-zero content loss -> content and style of images can be considered separately
+- first input: content images
+- second input: artistic style images
+- output: image displaying the content in the given artistic style
+
+Content and style representations of an image can be separated using a convolutional neural network
+
+VGG-19: network to "decouple" content and style of an image
+
+CONTENT
+- VGG network gives robust representation of the semantics (content representation) of an image
+- conv layers output feature maps of the image to represent the content (low/high level details like edges, etc.)
+- flatten feature maps (each feature map) becomes a row in a matrix
+
+
+STYLE
+- input style image into VGG network
+- construct feature spaces by constructing graham matrices (see below) out of feature maps
+- set of graham matrices = style representation
+
+GRAM MATRIX
+- covariant matrix between different feature maps
+- answers: which feature maps tend to activate together?
+- captures texture information
+
+Producing the stylized image: matching content
+- passing noise image through the VGG to obtain the matrix of its feature maps and the set of graham matrics
+- drive feature map matrices to become identical to matrix of content image by minimizing the content-loss function (L-content)
+- drive set of graham matrices to become identical to those of the style image by minimizing the style-loss function (L-style)
+- total loss = content loss + style loss
+
+Things to play around with
+- content/style tradeoff
+- impact of total variation loss (tv)
+
+
+EXTENSION: neural style transfer in videos
+- frame by frame methodology
